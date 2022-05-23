@@ -49,6 +49,7 @@ require_once dirname(__FILE__) . '/InListBuilder.php';
 require_once dirname(__FILE__) . '/WhereExpressionBuilder.php';
 require_once dirname(__FILE__) . '/WhereBracketExpressionBuilder.php';
 require_once dirname(__FILE__) . '/UserVariableBuilder.php';
+require_once dirname(__FILE__) . '/ReservedBuilder.php';
 
 /**
  * This class implements the builder for bracket expressions within the WHERE part. 
@@ -95,6 +96,11 @@ class WhereBracketExpressionBuilder {
         return $builder->build($parsed);
     }
 
+    protected function buildReserved($parsed) {
+        $builder = new ReservedBuilder();
+        return $builder->build($parsed);
+    }
+
     public function build($parsed) {
         if ($parsed['expr_type'] !== ExpressionType::BRACKET_EXPRESSION) {
             return "";
@@ -110,6 +116,7 @@ class WhereBracketExpressionBuilder {
             $sql .= $this->buildWhereExpression($v);
             $sql .= $this->build($v);
             $sql .= $this->buildUserVariable($v);
+            $sql .= $this->buildReserved($v);
 
             if ($len == strlen($sql)) {
                 throw new UnableToCreateSQLException('WHERE expression subtree', $k, $v, 'expr_type');

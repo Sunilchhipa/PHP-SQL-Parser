@@ -56,6 +56,8 @@ require_once dirname(__FILE__) . '/builders/ShowStatementBuilder.php';
  */
 class PHPSQLCreator {
 
+    public $created;
+
     public function __construct($parsed = false) {
         if ($parsed) {
             $this->create($parsed);

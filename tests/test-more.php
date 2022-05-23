@@ -138,26 +138,26 @@ function ok($pass, $test_name = '') {
     return $pass;
 }
 
-function is($this, $that, $test_name = '') {
-    $pass = ($this == $that);
+function is($param1, $that, $test_name = '') {
+    $pass = ($param1 == $that);
 
     ok($pass, $test_name);
 
     if (!$pass) {
-        diag("         got: '$this'");
+        diag("         got: '$param1'");
         diag("    expected: '$that'");
     }
 
     return $pass;
 }
 
-function isnt($this, $that, $test_name = '') {
-    $pass = ($this != $that);
+function isnt($param1, $that, $test_name = '') {
+    $pass = ($param1 != $that);
 
     ok($pass, $test_name);
 
     if (!$pass) {
-        diag("    '$this'");
+        diag("    '$param1'");
         diag('        !=');
         diag("    '$that'");
     }
@@ -191,11 +191,11 @@ function unlike($string, $pattern, $test_name = '') {
     return $pass;
 }
 
-function cmp_ok($this, $operator, $that, $test_name = '') {
-    eval("\$pass = (\$this $operator \$that);");
+function cmp_ok($param1, $operator, $that, $test_name = '') {
+    eval("\$pass = (\$param1 $operator \$that);");
 
     ob_start();
-    var_dump($this);
+    var_dump($param1);
     $_this = trim(ob_get_clean());
 
     ob_start();
